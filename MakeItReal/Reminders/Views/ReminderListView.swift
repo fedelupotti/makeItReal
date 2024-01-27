@@ -24,34 +24,39 @@ struct ReminderListView: View {
     
     var body: some View {
         NavigationStack {
-            List($viewModel.reminders) { $reminder in
-                RemindersListRowView(reminder: $reminder)
-                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                        Button(role: .destructive) {
-                            viewModel.deleteReminder(reminder)
-                        } label: {
-                            Label("Delete", systemImage: "trash")
-                        }
+            List {
+                ForEach($viewModel.reminders) { $reminder in
+                    RemindersListRowView(reminder: $reminder)
+                        
+                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                            Button(role: .destructive) {
+                                viewModel.deleteReminder(reminder)
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
 
-                    }
-                    .onTapGesture {
-                        editableReminder = reminder
-                    }
-                    .onChange(of: reminder.isCompleted) { _, newValue in
-                        viewModel.setCompleted(reminder, newValue)
-                    }
+                        }
+                        .onTapGesture {
+                            editableReminder = reminder
+                        }
+                        .onChange(of: reminder.isCompleted) { _, newValue in
+                            viewModel.setCompleted(reminder, newValue)
+                        }
+                }
             }
+            .scrollDismissesKeyboard(.immediately)
             .listStyle(.plain)
             .sheet(isPresented: $isSheetPresented) {
                 AddReminderView { reminder in
                     viewModel.addReminder(reminder)
                 }
             }
-            .sheet(item: $editableReminder) { reminder in
-                AddReminderView(reminder: reminder, mode: .edit) { reminder in
-                    viewModel.updateReminder(reminder)
-                }
-            }
+            //TODO: Show complete features
+//            .sheet(item: $editableReminder) { reminder in
+//                AddReminderView(reminder: reminder, mode: .edit) { reminder in
+//                    viewModel.updateReminder(reminder)
+//                }
+//            }
             .toolbar {
                 ToolbarItem {
                     Button(action: presentSheet, label: {
@@ -60,9 +65,6 @@ struct ReminderListView: View {
                 }
             }
             .navigationTitle("Reminders")
-//            .onTapGesture {
-//                isBookmarked.toggle()
-//            }
         }
         .safeAreaInset(edge: .bottom, spacing: 0) {
             tabBar

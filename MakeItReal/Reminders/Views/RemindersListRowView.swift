@@ -10,13 +10,20 @@ import SwiftUI
 struct RemindersListRowView: View {
     
     @Binding var reminder: Reminder
+        
+    @FocusState private var isBeingModifing: Bool
     
     var body: some View {
         HStack {
             Toggle(isOn: $reminder.isCompleted) { }
                 .toggleStyle(.reminder)
-            Text(reminder.title)
+            TextField("", text: $reminder.title)
+                .focused($isBeingModifing)
+                
+                Image(systemName: "\(isBeingModifing ? "info.circle.fill" : "")")
+                    .foregroundStyle(.orange)
         }
+        
     }
 }
 
