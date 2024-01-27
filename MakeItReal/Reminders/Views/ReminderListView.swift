@@ -27,7 +27,6 @@ struct ReminderListView: View {
             List {
                 ForEach($viewModel.reminders) { $reminder in
                     RemindersListRowView(reminder: $reminder)
-                        
                         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                             Button(role: .destructive) {
                                 viewModel.deleteReminder(reminder)
@@ -66,9 +65,26 @@ struct ReminderListView: View {
             }
             .navigationTitle("Reminders")
         }
-        .safeAreaInset(edge: .bottom, spacing: 0) {
-            tabBar
+        .safeAreaInset(edge: .bottom, alignment: .leading, spacing: 0) {
+//            tabBar
+            ZStack (alignment: .bottomLeading) {
+                Button {
+                    
+                } label: {
+                    HStack {
+                        Text("Undo")
+                            .font(.title3)
+                        Image(systemName: "arrow.uturn.backward")
+                        .scaledToFit()
+
+                    }
+                }
+                .buttonStyle(.borderedProminent)
+                
+            }
+            .padding(.leading, 30)
         }
+        
     }
     var tabBar: some View {
         HStack {
