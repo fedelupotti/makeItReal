@@ -18,6 +18,8 @@ struct ReminderListView: View {
     
     @State private var isBookmarked = 2.0
     
+    @State private var undoReminder: Reminder? = nil
+        
     private func presentSheet() {
         isSheetPresented.toggle()
     }
@@ -26,22 +28,31 @@ struct ReminderListView: View {
         NavigationStack {
             List {
                 ForEach($viewModel.reminders) { $reminder in
-                    RemindersListRowView(reminder: $reminder)
-                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                            Button(role: .destructive) {
-                                viewModel.deleteReminder(reminder)
-                            } label: {
-                                Label("Delete", systemImage: "trash")
-                            }
-
+                    Group {
+                        if !reminder.isDeleting {
+                            RemindersListRowView(reminder: $reminder)
                         }
-                        .onTapGesture {
-                            editableReminder = reminder
+                    }
+                    
+                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                        Button(role: .destructive) {
+                            //                                viewModel.deleteReminder(reminder)
+                            undoReminder = reminder
+                            viewModel.hideRowReminder(reminder)
+                            
+                        } label: {
+                            Label("Delete", systemImage: "trash")
+                        }
+                        
+                    }
+                    .onTapGesture {
+                        editableReminder = reminder
                         }
                         .onChange(of: reminder.isCompleted) { _, newValue in
                             viewModel.setCompleted(reminder, newValue)
                         }
                 }
+                
             }
             .scrollDismissesKeyboard(.immediately)
             .listStyle(.plain)
@@ -66,26 +77,40 @@ struct ReminderListView: View {
             .navigationTitle("Reminders")
         }
         .safeAreaInset(edge: .bottom, alignment: .leading, spacing: 0) {
-//            tabBar
+            //            tabBar
             ZStack (alignment: .bottomLeading) {
-                Button {
-                    
-                } label: {
-                    HStack {
-                        Text("Undo")
-                            .font(.title3)
-                        Image(systemName: "arrow.uturn.backward")
-                        .scaledToFit()
-
-                    }
-                }
-                .buttonStyle(.borderedProminent)
-                
+                undoButton
+                    .buttonStyle(.borderedProminent)
             }
             .padding(.leading, 30)
         }
         
     }
+    
+    @ViewBuilder
+    func visibleReminderRowView(reminder: Binding<Reminder>) -> some View {
+        if !reminder.isDeleting.wrappedValue {
+                RemindersListRowView(reminder: reminder)
+        }
+    }
+    
+    private var undoButton: some View {
+        Button {
+            if let undoReminder {
+                    viewModel.showReminderAgain(undoReminder)
+            }
+            undoReminder = nil
+        } label: {
+            HStack {
+                Text("Undo")
+                    .font(.title3)
+                Image(systemName: "arrow.uturn.backward")
+                .scaledToFit()
+
+            }
+        }
+    }
+    
     var tabBar: some View {
         HStack {
 
@@ -93,19 +118,6 @@ struct ReminderListView: View {
                 Text("Archive")
             } icon: {
                 Image(systemName: "archivebox")
-                    .overlay {
-                        Circle()
-                            .stroke(.red)
-                            .scaleEffect(isBookmarked)
-                            .opacity(2.0 - isBookmarked )
-                            .animation(.easeOut(duration: 1).repeatForever(), value: isBookmarked)
-                    }
-                    .onTapGesture {
-                        isBookmarked = 2
-                    }
-                
-                
-                
 //                    .changeEffect(.jump(height: 50), value: isBookmarked, isEnabled: isBookmarked)
             }
             

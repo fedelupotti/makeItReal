@@ -62,4 +62,16 @@ class RemindersListViewModel: ObservableObject {
         updateReminder(reminder)
     }
     
+    func hideRowReminder(_ reminder: Reminder) {
+        var reminder = reminder
+        reminder.isDeleting = true
+        updateReminder(reminder)
+    }
+    
+    func showReminderAgain(_ reminder: Reminder) {
+        var reminder = reminder
+        reminder.isDeleting = false
+        updateReminder(reminder)
+    }
+    
 }
