@@ -15,11 +15,11 @@ struct ReminderListView: View {
     @State private var isSheetPresented = false
     
     @State private var editableReminder: Reminder? = nil
-    
-    @State private var isBookmarked = 2.0
-    
-    @State private var undoReminder: Reminder? = nil
         
+    @State private var undoReminder: Reminder? = nil
+    
+    @State private var undoTimer: Timer?
+            
     private func presentSheet() {
         isSheetPresented.toggle()
     }
@@ -37,8 +37,7 @@ struct ReminderListView: View {
                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                         Button(role: .destructive) {
                             //                                viewModel.deleteReminder(reminder)
-                            undoReminder = reminder
-                            viewModel.hideRowReminder(reminder)
+                            startDeletingAction(for: reminder)
                             
                         } label: {
                             Label("Delete", systemImage: "trash")
@@ -78,35 +77,54 @@ struct ReminderListView: View {
         }
         .safeAreaInset(edge: .bottom, alignment: .leading, spacing: 0) {
             //            tabBar
-            ZStack (alignment: .bottomLeading) {
-                undoButton
-                    .buttonStyle(.borderedProminent)
+            
+            if let undoReminder {
+                ZStack (alignment: .bottomLeading) {
+                    undoButton
+                        .buttonStyle(.borderedProminent)
+                }
+                .padding(.leading, 30)
             }
-            .padding(.leading, 30)
         }
-        
     }
     
-    @ViewBuilder
-    func visibleReminderRowView(reminder: Binding<Reminder>) -> some View {
-        if !reminder.isDeleting.wrappedValue {
-                RemindersListRowView(reminder: reminder)
+    private func startDeletingAction(for reminder: Reminder) {
+        undoReminder = reminder
+        viewModel.hideRowReminder(reminder)
+        
+        undoTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { _ in
+            guard let undoReminder else { return }
+            viewModel.deleteReminder(undoReminder)
+            self.undoReminder = nil
+            
         }
+    }
+    
+    private func cancelDeletingAction(for reminder: Reminder) {
+        viewModel.showReminderAgain(reminder)
+        
+        undoTimer?.invalidate()
+        undoTimer = nil
+        undoReminder = nil
     }
     
     private var undoButton: some View {
         Button {
-            if let undoReminder {
-                    viewModel.showReminderAgain(undoReminder)
+            withAnimation(.easeIn(duration: 2)) {
+                if let undoReminder {
+                    cancelDeletingAction(for: undoReminder)
+                }
             }
-            undoReminder = nil
+            
         } label: {
             HStack {
-                Text("Undo")
-                    .font(.title3)
-                Image(systemName: "arrow.uturn.backward")
-                .scaledToFit()
-
+                Label("Undo", systemImage: "arrow.uturn.backward")
+                    .labelStyle(.iconOnly)
+                    .imageScale(.large)
+                    .rotationEffect(.degrees(undoReminder != nil ? 90 : 0))
+                    .scaleEffect(undoReminder != nil ? 1.5 : 1)
+                    .padding()
+                
             }
         }
     }
