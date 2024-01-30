@@ -15,8 +15,17 @@ struct ReminderListView: View {
     @State private var isSheetPresented = false
     
     @State private var editableReminder: Reminder? = nil
+    
+    @State private var showUndoButton = false
         
-    @State private var undoReminder: Reminder? = nil
+    @State private var undoReminder: Reminder? = nil {
+        didSet {
+            withAnimation {
+                showUndoButton = undoReminder != nil
+
+            }
+        }
+    }
     
     @State private var undoTimer: Timer?
             
@@ -67,6 +76,12 @@ struct ReminderListView: View {
 //                }
 //            }
             .toolbar {
+                ToolbarItem(placement: .keyboard) {
+                    Button("Click me!") {
+                        print("Clicked")
+                    }
+                }
+                
                 ToolbarItem {
                     Button(action: presentSheet, label: {
                         Image(systemName: "plus")
@@ -76,9 +91,7 @@ struct ReminderListView: View {
             .navigationTitle("Reminders")
         }
         .safeAreaInset(edge: .bottom, alignment: .leading, spacing: 0) {
-            //            tabBar
-            
-            if let undoReminder {
+            if showUndoButton {
                 ZStack (alignment: .bottomLeading) {
                     undoButton
                         .buttonStyle(.borderedProminent)
@@ -110,21 +123,13 @@ struct ReminderListView: View {
     
     private var undoButton: some View {
         Button {
-            withAnimation(.easeIn(duration: 2)) {
-                if let undoReminder {
-                    cancelDeletingAction(for: undoReminder)
-                }
+            if let undoReminder {
+                cancelDeletingAction(for: undoReminder)
             }
-            
         } label: {
             HStack {
                 Label("Undo", systemImage: "arrow.uturn.backward")
-                    .labelStyle(.iconOnly)
-                    .imageScale(.large)
-                    .rotationEffect(.degrees(undoReminder != nil ? 90 : 0))
-                    .scaleEffect(undoReminder != nil ? 1.5 : 1)
-                    .padding()
-                
+                    .frame(width: .infinity, height: .infinity)                
             }
         }
     }
