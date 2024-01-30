@@ -22,12 +22,13 @@ struct ReminderListView: View {
         didSet {
             withAnimation {
                 showUndoButton = undoReminder != nil
-
             }
         }
     }
     
     @State private var undoTimer: Timer?
+    
+    @State private var isDateViewPresented = false
             
     private func presentSheet() {
         isSheetPresented.toggle()
@@ -64,6 +65,9 @@ struct ReminderListView: View {
             }
             .scrollDismissesKeyboard(.immediately)
             .listStyle(.plain)
+            .sheet(isPresented: $isDateViewPresented, content: {
+                DateReminderView()
+            })
             .sheet(isPresented: $isSheetPresented) {
                 AddReminderView { reminder in
                     viewModel.addReminder(reminder)
@@ -77,8 +81,14 @@ struct ReminderListView: View {
 //            }
             .toolbar {
                 ToolbarItem(placement: .keyboard) {
-                    Button("Click me!") {
-                        print("Clicked")
+                    Button {
+                        guard let reminder = editableReminder else { return }
+                        modifyDate(for: reminder)
+                        isDateViewPresented = true
+                        
+                    } label: {
+                        Image(systemName: "calendar.badge.clock")
+                            .font(.title2)
                     }
                 }
                 
@@ -99,6 +109,10 @@ struct ReminderListView: View {
                 .padding(.leading, 30)
             }
         }
+    }
+    
+    private func modifyDate(for reminder: Reminder) {
+        
     }
     
     private func startDeletingAction(for reminder: Reminder) {

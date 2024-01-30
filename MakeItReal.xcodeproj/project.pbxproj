@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD017B1A2B697809002B0D27 /* DateReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD017B192B697809002B0D27 /* DateReminderView.swift */; };
 		DD198C332B4ECA1100AF501B /* AddReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD198C322B4ECA1100AF501B /* AddReminderView.swift */; };
 		DD198C3A2B4EE20B00AF501B /* RemindersListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD198C392B4EE20B00AF501B /* RemindersListViewModel.swift */; };
 		DD198C3C2B4F11B700AF501B /* RemindersListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD198C3B2B4F11B700AF501B /* RemindersListRowView.swift */; };
@@ -52,6 +53,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DD017B192B697809002B0D27 /* DateReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateReminderView.swift; sourceTree = "<group>"; };
 		DD198C322B4ECA1100AF501B /* AddReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReminderView.swift; sourceTree = "<group>"; };
 		DD198C392B4EE20B00AF501B /* RemindersListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersListViewModel.swift; sourceTree = "<group>"; };
 		DD198C3B2B4F11B700AF501B /* RemindersListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersListRowView.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				DD198C3B2B4F11B700AF501B /* RemindersListRowView.swift */,
 				DD198C322B4ECA1100AF501B /* AddReminderView.swift */,
 				DD198C3D2B4F171100AF501B /* ReminderToggleStyle.swift */,
+				DD017B192B697809002B0D27 /* DateReminderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				DD45B1832B4DAC11002D3AF5 /* ReminderListView.swift in Sources */,
 				DDF217372B5077A300E65814 /* RemindersRepository.swift in Sources */,
 				DD198C332B4ECA1100AF501B /* AddReminderView.swift in Sources */,
+				DD017B1A2B697809002B0D27 /* DateReminderView.swift in Sources */,
 				DD45B1812B4DAC11002D3AF5 /* MakeItRealApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
