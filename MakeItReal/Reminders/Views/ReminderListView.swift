@@ -147,42 +147,6 @@ struct ReminderListView: View {
             }
         }
     }
-    
-    var tabBar: some View {
-        HStack {
-
-            Label {
-                Text("Archive")
-            } icon: {
-                Image(systemName: "archivebox")
-//                    .changeEffect(.jump(height: 50), value: isBookmarked, isEnabled: isBookmarked)
-            }
-            
-            Label("Profile", systemImage: "person")
-        }
-        .labelStyle(SocialFeedTabBarLabelStyle(isSelected: false))
-        .padding(12)
-        .padding(.bottom, 2)
-        .background(.regularMaterial, in: Capsule(style: .continuous))
-        .padding(.horizontal)
-    }
-}
-
-
-
-private struct SocialFeedTabBarLabelStyle: LabelStyle {
-    var isSelected: Bool
-
-    func makeBody(configuration: Configuration) -> some View {
-        VStack(spacing: 6) {
-            configuration.icon
-                .imageScale(.medium)
-                .symbolVariant(isSelected ? .fill : .none)
-                .font(.system(size: 22))
-        }
-        .foregroundStyle(isSelected ? AnyShapeStyle(.tint) : AnyShapeStyle(Color.primary))
-        .frame(maxWidth: .infinity)
-    }
 }
 
 #Preview {
