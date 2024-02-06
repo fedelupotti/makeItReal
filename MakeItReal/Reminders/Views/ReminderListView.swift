@@ -45,13 +45,10 @@ struct ReminderListView: View {
                     
                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                         Button(role: .destructive) {
-                            //                                viewModel.deleteReminder(reminder)
                             startDeletingAction(for: reminder)
-                            
                         } label: {
                             Label("Delete", systemImage: "trash")
                         }
-                        
                     }
                     .onTapGesture {
                         editableReminder = reminder
@@ -64,9 +61,9 @@ struct ReminderListView: View {
             }
             .scrollDismissesKeyboard(.immediately)
             .listStyle(.plain)
-            .sheet(isPresented: $isDateViewPresented, content: {
-                DateReminderView()
-            })
+            .sheet(isPresented: $isDateViewPresented) {
+                DateReminderView(reminder: $editableReminder)
+            }
             .sheet(isPresented: $isSheetPresented) {
                 AddReminderView { reminder in
                     viewModel.addReminder(reminder)
@@ -142,7 +139,7 @@ struct ReminderListView: View {
         } label: {
             HStack {
                 Label("Undo", systemImage: "arrow.uturn.backward")
-                    .frame(width: .infinity, height: .infinity)                
+                    .font(.body)
             }
         }
     }

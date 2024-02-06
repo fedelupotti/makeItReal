@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DateReminderView: View {
     
-    
+    @Binding var reminder: Reminder?
     
     @State private var isOnToggleDate = true
     
@@ -23,21 +23,27 @@ struct DateReminderView: View {
         NavigationStack {
             Form {
                 Toggle(isOn: $isOnToggleDate) {
-                    HStack {
+                    HStack(alignment: .center) {
                         Image(systemName: "calendar")
                             .foregroundStyle(.blue)
                             .font(.title2)
                         VStack(alignment: .leading) {
                             Text("Day")
-                            Text("dateSelected")
-                                .foregroundStyle(.blue)
-                                .font(.caption)
+                            if isOnToggleDate {
+                                Text("\(formatDateString())")
+                                    .foregroundStyle(.blue)
+                                    .font(.caption)
+                            }
+                            
                         }
                     }
                 }
                 if isOnToggleDate {
                     DatePicker("", selection: $dateSelected, displayedComponents: .date)
                         .datePickerStyle(.graphical)
+                        .onChange(of: dateSelected) { _, newDateSelected in
+                            reminder?.date = newDateSelected
+                        }
                 }
                 
                 Toggle(isOn: $isOnToggleTime) {
@@ -51,6 +57,9 @@ struct DateReminderView: View {
                 if isOnToggleTime {
                     DatePicker("", selection: $timeSelected, displayedComponents: .hourAndMinute)
                         .datePickerStyle(.wheel)
+                        .onChange(of: timeSelected) { _, newTimeSelected in
+                            reminder?.time = newTimeSelected
+                        }
                 }
                 
             }
@@ -63,21 +72,15 @@ struct DateReminderView: View {
             .onChange(of: isOnToggleTime) { _, newValue in
                 newValue == true ? isOnToggleDate = true : nil
             }
+            .onAppear {
+                reminder?.date = dateSelected
+            }
             
         }
     }
     
-    private func formatDateString(_ dateString: String, unreadMessagesCount: Int?) -> String {
-        let dateFormatter = ISO8601DateFormatter()
-        dateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        
-        if let unreadMessagesCount {
-            return "\(unreadMessagesCount) new"
-        }
-        
-        guard let date = dateFormatter.date(from: dateString) else {
-            return ""
-        }
+    private func formatDateString() -> String {
+        let date = reminder?.date ?? Date()
         
         let calendar = Calendar.current
         if calendar.isDateInToday(date) {
@@ -93,5 +96,8 @@ struct DateReminderView: View {
 }
 
 #Preview {
-    DateReminderView()
+    NavigationView {
+        @State var reminderMock = Reminder.samples.first
+        DateReminderView(reminder: $reminderMock)
+    }
 }
