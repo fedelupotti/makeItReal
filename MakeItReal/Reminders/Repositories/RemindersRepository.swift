@@ -10,7 +10,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Factory
 
-public class RemindersRepository: ObservableObject {
+public class RemindersRepository: ObservableObject, ReminderRepositoryProtocol {
     
     @Published var reminders = [Reminder]()
     

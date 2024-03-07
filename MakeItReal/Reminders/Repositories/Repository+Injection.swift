@@ -18,4 +18,11 @@ extension Container {
         }
         .singleton
     }
+    
+    public var mockReminderRepository: Factory<MockReminderRepository> {
+        self {
+            MockReminderRepository()
+        }
+        .singleton
+    }
 }

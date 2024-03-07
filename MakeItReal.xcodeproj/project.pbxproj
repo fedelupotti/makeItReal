@@ -45,12 +45,25 @@
 		DD45B1852B4DAC12002D3AF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD45B1842B4DAC12002D3AF5 /* Assets.xcassets */; };
 		DD45B1882B4DAC12002D3AF5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD45B1872B4DAC12002D3AF5 /* Preview Assets.xcassets */; };
 		DD45B18F2B4DAC97002D3AF5 /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD45B18E2B4DAC97002D3AF5 /* Reminder.swift */; };
+		DD4C60372B868A4C00CC5C3B /* MakeItRealTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4C60362B868A4C00CC5C3B /* MakeItRealTests.swift */; };
 		DD5307012B5546AD00286AAB /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = DD5307002B5546AD00286AAB /* Factory */; };
 		DD8B27822B5D65DE0052A148 /* Firebase+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8B27812B5D65DE0052A148 /* Firebase+Injection.swift */; };
 		DD8B27842B5D9AEC0052A148 /* Repository+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8B27832B5D9AEC0052A148 /* Repository+Injection.swift */; };
 		DD8B27892B5DAB400052A148 /* Pow in Frameworks */ = {isa = PBXBuildFile; productRef = DD8B27882B5DAB400052A148 /* Pow */; };
+		DDB340E62B98FBCC0024AF7E /* ReminderRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB340E52B98FBCC0024AF7E /* ReminderRepositoryProtocol.swift */; };
+		DDB340E82B98FD7E0024AF7E /* MockReminderRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB340E72B98FD7E0024AF7E /* MockReminderRepository.swift */; };
 		DDF217372B5077A300E65814 /* RemindersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF217362B5077A300E65814 /* RemindersRepository.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DD4C60382B868A4C00CC5C3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DD45B1752B4DAC11002D3AF5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DD45B17C2B4DAC11002D3AF5;
+			remoteInfo = MakeItReal;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		DD017B192B697809002B0D27 /* DateReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateReminderView.swift; sourceTree = "<group>"; };
@@ -65,8 +78,12 @@
 		DD45B1842B4DAC12002D3AF5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DD45B1872B4DAC12002D3AF5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DD45B18E2B4DAC97002D3AF5 /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
+		DD4C60342B868A4C00CC5C3B /* MakeItRealTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MakeItRealTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD4C60362B868A4C00CC5C3B /* MakeItRealTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeItRealTests.swift; sourceTree = "<group>"; };
 		DD8B27812B5D65DE0052A148 /* Firebase+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Firebase+Injection.swift"; sourceTree = "<group>"; };
 		DD8B27832B5D9AEC0052A148 /* Repository+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repository+Injection.swift"; sourceTree = "<group>"; };
+		DDB340E52B98FBCC0024AF7E /* ReminderRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderRepositoryProtocol.swift; sourceTree = "<group>"; };
+		DDB340E72B98FD7E0024AF7E /* MockReminderRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockReminderRepository.swift; sourceTree = "<group>"; };
 		DDF217362B5077A300E65814 /* RemindersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,6 +121,13 @@
 				DD289B482B506B59001B52E3 /* FirebaseFirestoreCombine-Community in Frameworks */,
 				DD289B582B506B59001B52E3 /* FirebaseMessaging in Frameworks */,
 				DD289B542B506B59001B52E3 /* FirebaseInstallations in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD4C60312B868A4C00CC5C3B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				DD45B17F2B4DAC11002D3AF5 /* MakeItReal */,
+				DD4C60352B868A4C00CC5C3B /* MakeItRealTests */,
 				DD45B17E2B4DAC11002D3AF5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -162,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				DD45B17D2B4DAC11002D3AF5 /* MakeItReal.app */,
+				DD4C60342B868A4C00CC5C3B /* MakeItRealTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -186,6 +212,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		DD4C60352B868A4C00CC5C3B /* MakeItRealTests */ = {
+			isa = PBXGroup;
+			children = (
+				DD4C60362B868A4C00CC5C3B /* MakeItRealTests.swift */,
+			);
+			path = MakeItRealTests;
+			sourceTree = "<group>";
+		};
 		DD8B277F2B5D65460052A148 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,7 +240,9 @@
 			isa = PBXGroup;
 			children = (
 				DDF217362B5077A300E65814 /* RemindersRepository.swift */,
+				DDB340E72B98FD7E0024AF7E /* MockReminderRepository.swift */,
 				DD8B27832B5D9AEC0052A148 /* Repository+Injection.swift */,
+				DDB340E52B98FBCC0024AF7E /* ReminderRepositoryProtocol.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -262,6 +298,24 @@
 			productReference = DD45B17D2B4DAC11002D3AF5 /* MakeItReal.app */;
 			productType = "com.apple.product-type.application";
 		};
+		DD4C60332B868A4C00CC5C3B /* MakeItRealTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD4C603C2B868A4C00CC5C3B /* Build configuration list for PBXNativeTarget "MakeItRealTests" */;
+			buildPhases = (
+				DD4C60302B868A4C00CC5C3B /* Sources */,
+				DD4C60312B868A4C00CC5C3B /* Frameworks */,
+				DD4C60322B868A4C00CC5C3B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DD4C60392B868A4C00CC5C3B /* PBXTargetDependency */,
+			);
+			name = MakeItRealTests;
+			productName = MakeItRealTests;
+			productReference = DD4C60342B868A4C00CC5C3B /* MakeItRealTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -274,6 +328,10 @@
 				TargetAttributes = {
 					DD45B17C2B4DAC11002D3AF5 = {
 						CreatedOnToolsVersion = 15.0.1;
+					};
+					DD4C60332B868A4C00CC5C3B = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = DD45B17C2B4DAC11002D3AF5;
 					};
 				};
 			};
@@ -296,6 +354,7 @@
 			projectRoot = "";
 			targets = (
 				DD45B17C2B4DAC11002D3AF5 /* MakeItReal */,
+				DD4C60332B868A4C00CC5C3B /* MakeItRealTests */,
 			);
 		};
 /* End PBXProject section */
@@ -311,6 +370,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DD4C60322B868A4C00CC5C3B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -320,10 +386,12 @@
 			files = (
 				DD198C3E2B4F171100AF501B /* ReminderToggleStyle.swift in Sources */,
 				DD8B27822B5D65DE0052A148 /* Firebase+Injection.swift in Sources */,
+				DDB340E62B98FBCC0024AF7E /* ReminderRepositoryProtocol.swift in Sources */,
 				DD198C3A2B4EE20B00AF501B /* RemindersListViewModel.swift in Sources */,
 				DD8B27842B5D9AEC0052A148 /* Repository+Injection.swift in Sources */,
 				DD198C3C2B4F11B700AF501B /* RemindersListRowView.swift in Sources */,
 				DD45B18F2B4DAC97002D3AF5 /* Reminder.swift in Sources */,
+				DDB340E82B98FD7E0024AF7E /* MockReminderRepository.swift in Sources */,
 				DD45B1832B4DAC11002D3AF5 /* ReminderListView.swift in Sources */,
 				DDF217372B5077A300E65814 /* RemindersRepository.swift in Sources */,
 				DD198C332B4ECA1100AF501B /* AddReminderView.swift in Sources */,
@@ -332,7 +400,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DD4C60302B868A4C00CC5C3B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD4C60372B868A4C00CC5C3B /* MakeItRealTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DD4C60392B868A4C00CC5C3B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DD45B17C2B4DAC11002D3AF5 /* MakeItReal */;
+			targetProxy = DD4C60382B868A4C00CC5C3B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		DD45B1892B4DAC12002D3AF5 /* Debug */ = {
@@ -512,6 +596,42 @@
 			};
 			name = Release;
 		};
+		DD4C603A2B868A4C00CC5C3B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C4XSSD23UD;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.federicoLupotti.MakeItRealTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MakeItReal.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MakeItReal";
+			};
+			name = Debug;
+		};
+		DD4C603B2B868A4C00CC5C3B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C4XSSD23UD;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.federicoLupotti.MakeItRealTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MakeItReal.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MakeItReal";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -529,6 +649,15 @@
 			buildConfigurations = (
 				DD45B18C2B4DAC12002D3AF5 /* Debug */,
 				DD45B18D2B4DAC12002D3AF5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DD4C603C2B868A4C00CC5C3B /* Build configuration list for PBXNativeTarget "MakeItRealTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD4C603A2B868A4C00CC5C3B /* Debug */,
+				DD4C603B2B868A4C00CC5C3B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

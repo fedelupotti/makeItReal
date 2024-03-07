@@ -17,8 +17,9 @@ class RemindersListViewModel: ObservableObject {
     
     @Published var errorMesagge: String?
     
-//    private var remindersRepository: RemindersRepository = RemindersRepository()
-    @Injected(\.reminderRepository) private var remindersRepository: RemindersRepository
+    //TODO: Change init to apply DI. Uncomment to use Firebase
+//    @Injected(\.reminderRepository) private var remindersRepository: RemindersRepository
+    @Injected(\.mockReminderRepository) private var remindersRepository: MockReminderRepository
     
     init() {
         subscribe()
