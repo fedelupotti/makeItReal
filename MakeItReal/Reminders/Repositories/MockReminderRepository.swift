@@ -12,8 +12,10 @@ enum ErrorDescription: Error {
 }
 
 public class MockReminderRepository: ObservableObject, ReminderRepositoryProtocol {
-    
+        
     @Published var reminders = [Reminder]()
+    
+    var remindersPublisher: Published<[Reminder]>.Publisher { $reminders }
     
     func addReminder(_ reminder: Reminder) throws {
         reminders.append(reminder)
@@ -24,7 +26,7 @@ public class MockReminderRepository: ObservableObject, ReminderRepositoryProtoco
     }
     
     func updateReminder(_ reminder: Reminder) throws {
-        var reminder = reminder
+        let reminder = reminder
         guard let index = reminders.firstIndex(where: { $0.id == reminder.id}) else {
             throw ErrorDescription.notFound
         }

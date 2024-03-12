@@ -17,18 +17,23 @@ class RemindersListViewModel: ObservableObject {
     
     @Published var errorMesagge: String?
     
-    //TODO: Change init to apply DI. Uncomment to use Firebase
-//    @Injected(\.reminderRepository) private var remindersRepository: RemindersRepository
-    @Injected(\.mockReminderRepository) private var remindersRepository: MockReminderRepository
+    lazy private var cancellable = Set<AnyCancellable>()
     
-    init() {
+    let remindersRepository: any ReminderRepositoryProtocol
+    
+    init(remindersRepository: any ReminderRepositoryProtocol = Container.shared.reminderRepository()) {
+        self.remindersRepository = remindersRepository
         subscribe()
     }
     
     func subscribe() {
         remindersRepository
-            .$reminders
-            .assign(to: &$reminders)
+            .remindersPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] reminders in
+                self?.reminders = reminders
+            }
+            .store(in: &cancellable)
     }
     
     func addReminder(_ reminder: Reminder) {

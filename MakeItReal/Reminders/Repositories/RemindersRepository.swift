@@ -14,6 +14,8 @@ public class RemindersRepository: ObservableObject, ReminderRepositoryProtocol {
     
     @Published var reminders = [Reminder]()
     
+    var remindersPublisher: Published<[Reminder]>.Publisher { $reminders }
+    
     private var listenerRegistration: ListenerRegistration?
     
     @Injected(\.firestore) private var firestore
