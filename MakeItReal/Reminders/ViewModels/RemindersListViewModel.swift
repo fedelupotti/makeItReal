@@ -29,11 +29,7 @@ class RemindersListViewModel: ObservableObject {
     func subscribe() {
         remindersRepository
             .remindersPublisher
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] reminders in
-                self?.reminders = reminders
-            }
-            .store(in: &cancellable)
+            .assign(to: &$reminders)
     }
     
     func addReminder(_ reminder: Reminder) {

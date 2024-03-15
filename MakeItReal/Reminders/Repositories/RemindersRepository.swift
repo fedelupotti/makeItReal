@@ -5,6 +5,7 @@
 //  Created by Federico Lupotti on 11/01/24.
 //
 
+import Combine
 import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
@@ -14,7 +15,7 @@ public class RemindersRepository: ObservableObject, ReminderRepositoryProtocol {
     
     @Published var reminders = [Reminder]()
     
-    var remindersPublisher: Published<[Reminder]>.Publisher { $reminders }
+    var remindersPublisher: AnyPublisher<[Reminder], Never> { $reminders.eraseToAnyPublisher() }
     
     private var listenerRegistration: ListenerRegistration?
     

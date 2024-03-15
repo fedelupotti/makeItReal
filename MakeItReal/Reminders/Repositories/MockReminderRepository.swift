@@ -15,7 +15,15 @@ public class MockReminderRepository: ObservableObject, ReminderRepositoryProtoco
         
     @Published var reminders = [Reminder]()
     
-    var remindersPublisher: Published<[Reminder]>.Publisher { $reminders }
+    var remindersPublisher: AnyPublisher<[Reminder], Never> { $reminders.eraseToAnyPublisher() }
+    
+    init() {
+        resetRepository()
+    }
+    
+    private func resetRepository() {
+        reminders = []
+    }
     
     func addReminder(_ reminder: Reminder) throws {
         reminders.append(reminder)

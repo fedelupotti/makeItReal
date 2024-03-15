@@ -10,7 +10,7 @@ import Foundation
 
 protocol ReminderRepositoryProtocol: ObservableObject {
     var reminders: [Reminder] { get set }
-    var remindersPublisher: Published<[Reminder]>.Publisher { get }
+    var remindersPublisher: AnyPublisher<[Reminder], Never> { get }
     
     func addReminder(_ reminder: Reminder) throws
     func deleteReminder(_ reminder: Reminder)
