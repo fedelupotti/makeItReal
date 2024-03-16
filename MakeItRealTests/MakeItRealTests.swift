@@ -15,12 +15,12 @@ import Factory
 
 
 final class MakeItRealTests: XCTestCase {
-    var homeViewModel: RemindersListViewModel!
+    var sut: RemindersListViewModel!
     var mockReminderRespository: MockReminderRepository!
 
     override func setUpWithError() throws {
         mockReminderRespository = Container.shared.mockReminderRepository()
-        homeViewModel = RemindersListViewModel(remindersRepository: mockReminderRespository)
+        sut = RemindersListViewModel(remindersRepository: mockReminderRespository)
     }
 
     override func tearDownWithError() throws {
@@ -29,23 +29,25 @@ final class MakeItRealTests: XCTestCase {
     
     func test_ReminderListViewModel_addReminder_creatNewReminder() {
         //Given
-        let reminder = Reminder(id: UUID().uuidString, title: "Write some tests")
+        let reminder = Reminder(id: "1234", title: "Write some tests")
         
         //When
-        homeViewModel.addReminder(reminder)
+        sut.addReminder(reminder)
         
         //Then
-        XCTAssertEqual(homeViewModel.reminders.first?.title, "Write some tests", "Reminders in mock repository: \(mockReminderRespository.reminders)")
+        XCTAssertTrue(sut.reminders.first != nil)
+        XCTAssertEqual(sut.reminders.first?.id, "1234", "Reminders in mock repository: \(mockReminderRespository.reminders)")
+        
     }
 
     func test_RemindersListViewModel_addReminder_incrementRemindersInOne() {
         //Given
         let reminder = Reminder(id: UUID().uuidString ,title: "Walk with Laika")
-        let numberOfReminders = homeViewModel.reminders.count
+        let numberOfReminders = sut.reminders.count
         
         //When
-        homeViewModel.addReminder(reminder)
-        let numberOfRemindersAfterAdded = homeViewModel.reminders.count
+        sut.addReminder(reminder)
+        let numberOfRemindersAfterAdded = sut.reminders.count
         
         //Then
         XCTAssertEqual(numberOfRemindersAfterAdded, numberOfReminders + 1)
@@ -54,15 +56,31 @@ final class MakeItRealTests: XCTestCase {
     func test_RemindersListViewModel_deleteReminder_decreaseRemindersInOne() {
         //Given
         let reminder = Reminder(title: "Make some kate")
-        homeViewModel.addReminder(reminder)
-        let numberOfReminders = homeViewModel.reminders.count
+        sut.addReminder(reminder)
+        let numberOfReminders = sut.reminders.count
         
         //When
-        homeViewModel.deleteReminder(reminder)
-        let numberOfRemindersAfterDelete = homeViewModel.reminders.count
+        sut.deleteReminder(reminder)
+        let numberOfRemindersAfterDelete = sut.reminders.count
         
         //Then
         XCTAssertEqual(numberOfRemindersAfterDelete, numberOfReminders - 1)
     }
-
+    
+    func test_RemindersListViewModel_deleteReminder_reminderRemovedShouldBeNil() {
+        //Given
+        let reminder = Reminder(id: "1234", title: "This reminder should be delete")
+        sut.addReminder(reminder)
+        
+        //When
+        sut.deleteReminder(reminder)
+        
+        //Then
+        let reminderDeleted = sut.reminders.first(where: { $0.id == "1234" })
+        XCTAssertNil(reminderDeleted)
+    }
+    
+    func test_ReminderListViewModel_updateReminder_sameIdAfterModifyReminder() {
+        /
+    }
 }
