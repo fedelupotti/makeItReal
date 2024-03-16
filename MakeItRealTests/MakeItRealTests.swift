@@ -29,14 +29,14 @@ final class MakeItRealTests: XCTestCase {
     
     func test_ReminderListViewModel_addReminder_creatNewReminder() {
         //Given
-        let reminder = Reminder(id: "1234", title: "Write some tests")
+        let reminder = Reminder(id: UUID().uuidString, title: "Write some tests")
         
         //When
         sut.addReminder(reminder)
         
         //Then
         XCTAssertTrue(sut.reminders.first != nil)
-        XCTAssertEqual(sut.reminders.first?.id, "1234", "Reminders in mock repository: \(mockReminderRespository.reminders)")
+        XCTAssertEqual(sut.reminders.first?.id, reminder.id, "Reminders in mock repository: \(mockReminderRespository.reminders)")
         
     }
 
@@ -69,18 +69,40 @@ final class MakeItRealTests: XCTestCase {
     
     func test_RemindersListViewModel_deleteReminder_reminderRemovedShouldBeNil() {
         //Given
-        let reminder = Reminder(id: "1234", title: "This reminder should be delete")
+        let reminder = Reminder(id: UUID().uuidString, title: "This reminder should be delete")
         sut.addReminder(reminder)
         
         //When
         sut.deleteReminder(reminder)
         
         //Then
-        let reminderDeleted = sut.reminders.first(where: { $0.id == "1234" })
+        let reminderDeleted = sut.reminders.first(where: { $0.id == reminder.id })
         XCTAssertNil(reminderDeleted)
     }
     
-    func test_ReminderListViewModel_updateReminder_sameIdAfterModifyReminder() {
-        /
+    func test_ReminderListViewModel_setCompleted_ToggleCompleateToTrue() {
+        //Given
+        let reminder = Reminder(id: UUID().uuidString, title: "This title will be changed")
+        sut.addReminder(reminder)
+        
+        //When
+        sut.setCompleted(reminder, true)
+        
+        //Then
+        let updatedReminder = sut.reminders.first(where: { $0.id == reminder.id })
+        XCTAssert(updatedReminder?.isCompleted == true)
+    }
+    
+    func test_ReminderListViewModel_setCompleted_ToggleCompleateToFalse() {
+        //Given
+        let reminder = Reminder(id: UUID().uuidString, title: "This title will be changed", isCompleted: true)
+        sut.addReminder(reminder)
+        
+        //When
+        sut.setCompleted(reminder, false)
+        
+        //Then
+        let updatedReminder = sut.reminders.first(where: { $0.id == reminder.id })
+        XCTAssert(updatedReminder?.isCompleted == false)
     }
 }
