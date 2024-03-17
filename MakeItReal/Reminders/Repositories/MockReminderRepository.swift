@@ -8,7 +8,10 @@ import Combine
 import Foundation
 
 enum ErrorDescription: Error {
+    
     case notFound
+    case updating
+    case adding
 }
 
 public class MockReminderRepository: ObservableObject, ReminderRepositoryProtocol {
@@ -18,7 +21,12 @@ public class MockReminderRepository: ObservableObject, ReminderRepositoryProtoco
     var remindersPublisher: AnyPublisher<[Reminder], Never> { $reminders.eraseToAnyPublisher() }
     
     func addReminder(_ reminder: Reminder) throws {
-        reminders.append(reminder)
+        do {
+            reminders.append(reminder)
+        }
+        catch let error as ErrorDescription {
+            throw ErrorDescription.adding
+        }
     }
     
     func deleteReminder(_ reminder: Reminder) {
@@ -28,7 +36,7 @@ public class MockReminderRepository: ObservableObject, ReminderRepositoryProtoco
     func updateReminder(_ reminder: Reminder) throws {
         let reminder = reminder
         guard let index = reminders.firstIndex(where: { $0.id == reminder.id}) else {
-            throw ErrorDescription.notFound
+            throw ErrorDescription.updating
         }
         reminders[index] = reminder
     }

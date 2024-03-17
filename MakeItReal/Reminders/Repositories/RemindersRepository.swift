@@ -30,9 +30,15 @@ public class RemindersRepository: ObservableObject, ReminderRepositoryProtocol {
     }
     
     func addReminder(_ reminder: Reminder) throws {
-        try firestore
-            .collection(Reminder.collectionName)
-            .addDocument(from: reminder)
+        do {
+            try firestore
+                .collection(Reminder.collectionName)
+                .addDocument(from: reminder)
+        }
+        catch let error as ErrorDescription {
+            throw ErrorDescription.adding
+        }
+        
     }
     
     func deleteReminder(_ reminder: Reminder) {
@@ -49,13 +55,18 @@ public class RemindersRepository: ObservableObject, ReminderRepositoryProtocol {
     func updateReminder(_ reminder: Reminder) throws {
         
         guard let documentId = reminder.id else {
-            fatalError("There is no id for document: \(reminder.title)")
+            return
+//            fatalError("There is no id for document: \(reminder.title)")
         }
-        
-        try firestore
-            .collection(Reminder.collectionName)
-            .document(documentId)
-            .setData(from: reminder, merge: true)
+        do {
+            try firestore
+                .collection(Reminder.collectionName)
+                .document(documentId)
+                .setData(from: reminder, merge: true)
+        }
+        catch let error {
+            throw ErrorDescription.updating
+        }
     }
 
     func unsubscribe() {

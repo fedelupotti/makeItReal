@@ -17,6 +17,8 @@ class RemindersListViewModel: ObservableObject {
     
     @Published var errorMesagge: String?
     
+    var repositoryError: ErrorDescription?
+    
     lazy private var cancellable = Set<AnyCancellable>()
     
     let remindersRepository: any ReminderRepositoryProtocol
@@ -37,7 +39,8 @@ class RemindersListViewModel: ObservableObject {
             try remindersRepository.addReminder(reminder)
             errorMesagge = nil
         }
-        catch {
+        catch let error {
+            repositoryError = error as? ErrorDescription
             print(error)
             errorMesagge = error.localizedDescription
         }
@@ -52,7 +55,8 @@ class RemindersListViewModel: ObservableObject {
             try remindersRepository.updateReminder(reminder)
             errorMesagge = nil
         }
-        catch {
+        catch let error {
+            repositoryError = error as? ErrorDescription
             errorMesagge = error.localizedDescription
             print("Error when updating reminder: \(error)")
         }

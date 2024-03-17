@@ -105,4 +105,10 @@ final class MakeItRealTests: XCTestCase {
         let updatedReminder = sut.reminders.first(where: { $0.id == reminder.id })
         XCTAssert(updatedReminder?.isCompleted == false)
     }
+    
+    func test_ReminderListViewModel_updateReminder_ThrowsError() {
+        let fakeReminder = Reminder(id: UUID().uuidString, title: "This reminder doesn't exist")
+        sut.updateReminder(fakeReminder)
+        XCTAssertEqual(sut.repositoryError, ErrorDescription.updating)
+    }
 }
