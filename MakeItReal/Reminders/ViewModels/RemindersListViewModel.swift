@@ -11,7 +11,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-class RemindersListViewModel: ObservableObject {
+final class RemindersListViewModel: ObservableObject {
     
     @Published var reminders: [Reminder] = [Reminder]()
     

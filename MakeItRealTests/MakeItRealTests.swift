@@ -14,15 +14,15 @@ import Factory
 // Naming structure: test_[Struct/Class] _ [Variable/function] _ expected result
 
 
-final class MakeItRealTests: XCTestCase {
-    var sut: RemindersListViewModel!
-    var mockReminderRespository: MockReminderRepository!
-
+class MakeItRealTests: XCTestCase {
+    private var sut: RemindersListViewModel!
+    private var mockReminderRespository: MockReminderRepository!
+    
     override func setUpWithError() throws {
         mockReminderRespository = Container.shared.mockReminderRepository()
         sut = RemindersListViewModel(remindersRepository: mockReminderRespository)
     }
-
+    
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
@@ -107,8 +107,14 @@ final class MakeItRealTests: XCTestCase {
     }
     
     func test_ReminderListViewModel_updateReminder_ThrowsError() {
+        //Given
         let fakeReminder = Reminder(id: UUID().uuidString, title: "This reminder doesn't exist")
+        
+        //When
+        //Reminder was never added
         sut.updateReminder(fakeReminder)
+        
+        //Then
         XCTAssertEqual(sut.repositoryError, ErrorDescription.updating)
     }
 }
