@@ -13,7 +13,7 @@ import Factory
 
 public class RemindersRepository: ObservableObject, ReminderRepositoryProtocol {
     
-    @Published var reminders = [Reminder]()
+    @Published internal var reminders = [Reminder]()
     
     var remindersPublisher: AnyPublisher<[Reminder], Never> { $reminders.eraseToAnyPublisher() }
     

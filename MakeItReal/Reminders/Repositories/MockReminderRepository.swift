@@ -16,7 +16,7 @@ enum ErrorDescription: Error {
 
 public class MockReminderRepository: ObservableObject, ReminderRepositoryProtocol {
         
-    @Published var reminders = [Reminder]()
+    @Published internal var reminders = [Reminder]()
     
     var remindersPublisher: AnyPublisher<[Reminder], Never> { $reminders.eraseToAnyPublisher() }
     

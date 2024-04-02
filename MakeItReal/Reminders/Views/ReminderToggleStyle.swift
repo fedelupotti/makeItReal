@@ -29,8 +29,8 @@ struct ReminderToggleStyle: ToggleStyle {
 }
 
 extension ToggleStyle where Self == ReminderToggleStyle {
-        static var reminder: ReminderToggleStyle { .init() }
-    }
+    static var reminder: ReminderToggleStyle { .init() }
+}
 
 #Preview {
     NavigationView {

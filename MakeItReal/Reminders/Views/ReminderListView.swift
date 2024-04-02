@@ -28,10 +28,6 @@ struct ReminderListView: View {
     @State private var undoTimer: Timer?
     
     @State private var isDateViewPresented = false
-            
-    private func presentSheet() {
-        isSheetPresented.toggle()
-    }
     
     var body: some View {
         NavigationStack {
@@ -105,6 +101,10 @@ struct ReminderListView: View {
                 .padding(.leading, 30)
             }
         }
+    }
+    
+    private func presentSheet() {
+        isSheetPresented.toggle()
     }
     
     private func modifyDate(for reminder: Reminder) {
