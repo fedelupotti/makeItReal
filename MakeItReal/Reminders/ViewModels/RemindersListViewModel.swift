@@ -13,7 +13,7 @@ import FirebaseFirestoreSwift
 
 final class RemindersListViewModel: ObservableObject {
     
-    @Published var reminders: [Reminder] = [Reminder]()
+    @Published var reminders = [Reminder]()
     
     @Published var errorMesagge: String?
     

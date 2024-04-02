@@ -55,7 +55,7 @@ class MakeItRealTests: XCTestCase {
     
     func test_RemindersListViewModel_deleteReminder_decreaseRemindersInOne() {
         //Given
-        let reminder = Reminder(title: "Make some kate")
+        let reminder = Reminder(title: "Make some katesurf")
         sut.addReminder(reminder)
         let numberOfReminders = sut.reminders.count
         
@@ -106,13 +106,13 @@ class MakeItRealTests: XCTestCase {
         XCTAssert(updatedReminder?.isCompleted == false)
     }
     
-    func test_ReminderListViewModel_updateReminder_ThrowsError() {
+    func test_ReminderListViewModel_updateReminder_ThrowsUpdatingError() {
         //Given
-        let fakeReminder = Reminder(id: UUID().uuidString, title: "This reminder doesn't exist")
+        let reminder = Reminder(id: UUID().uuidString, title: "This reminder will never be added")
         
         //When
         //Reminder was never added
-        sut.updateReminder(fakeReminder)
+        sut.updateReminder(reminder)
         
         //Then
         XCTAssertEqual(sut.repositoryError, ErrorDescription.updating)
